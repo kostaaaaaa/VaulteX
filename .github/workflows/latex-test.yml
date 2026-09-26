@@ -14,7 +14,7 @@ jobs:
       matrix:
         folder:
           - resume
-
+          - quick-note
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
