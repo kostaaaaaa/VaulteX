@@ -1,0 +1,329 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=1 cm, % seperation between body and page edge from the top
+    bottom=1 cm, % seperation between body and page edge from the bottom
+    left=1 cm, % seperation between body and page edge from the left
+    right=1 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 0, 0} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={John Doe's Resume},
+    pdfauthor={John Doe},
+    pdfcreator={JD},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
+
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage{charter}
+
+% Some settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+\pagenumbering{gobble} % no page numbering
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{0pt}\titlerule]
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.15 cm
+}{
+    % bottom space:
+    0.15 cm
+} % section title spacing
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.05 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0 cm + 0.00001 cm
+    }{
+        0 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+
+
+\begin{document}
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{$|$}
+
+    \begin{header}
+        \fontsize{25 pt}{25 pt}\selectfont John Doe
+
+        \vspace{2 pt}
+
+        \normalsize
+        \mbox{\underline{john.doe@mailing.com}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\underline{John Doe LinkedIn}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\underline{John Doe GitHub}}%
+        \kern 5.0 pt%
+        \AND%
+        \kern 5.0 pt%
+        \mbox{\underline{John Doe Google Scholar}}%
+        
+    \end{header}
+    
+
+    \section{Education}
+        \begin{twocolentry}{
+            \textbf{City, Province}
+        }
+            \textbf{ABC University}\end{twocolentry}
+        \begin{onecolentry}
+            \textit{MSc./PhD. Some Degree (Supervisor: \textbf{Dr. Supervisor}))}
+            \hfill \textit{Sep 2025 - Apr 2027}\\
+            \vspace{0.05 cm}
+            \textbf{Focus:} Thesis topic and Research Description 
+        \end{onecolentry}
+        \vspace{1mm}
+        \begin{twocolentry}{
+            \textbf{City, Province}
+        }
+            \textbf{ABC University}\end{twocolentry}
+                
+        \begin{onecolentry}
+            \textit{BSc. Some Degree }
+            \hfill \textit{Sep 2021 - Apr 2025}\\
+            \vspace{0.05 cm}
+            \textbf{Focus:} Thesis topic and Research Description
+        \end{onecolentry}
+    
+    \section{Work Experience} 
+        \begin{twocolentry}{
+            \textbf{City, Province}}
+            {\textbf{Job Title \#1}
+            }
+        \end{twocolentry}
+
+    \begin{onecolentry}
+    \textit{Company Name \#1}
+    \hfill \textit{May 2026 - Aug 2026}
+    \begin{highlights}
+      \item Job Duties Description \#1, XYZ Format
+      \item Job Duties Description \#2, XYZ Format
+      \item Job Duties Description \#3, XYZ Format
+    \end{highlights}
+    \end{onecolentry}
+
+        \begin{twocolentry}{
+            \textbf{City, Province}}
+            {\textbf{Job Title \#2}
+            }
+        \end{twocolentry}
+
+    \begin{onecolentry}
+    \textit{Company Name \#2}
+    \hfill \textit{May 2025 - Aug 2025}
+    \begin{highlights}
+      \item Job Duties Description \#1, XYZ Format
+      \item Job Duties Description \#2, XYZ Format
+      \item Job Duties Description \#3, XYZ Format
+    \end{highlights}
+    \end{onecolentry}
+
+
+        \begin{twocolentry}{
+            \textbf{City, Province}}
+            {\textbf{Job Title \#3}
+            }
+        \end{twocolentry}
+
+    \begin{onecolentry}
+    \textit{Company Name \#3}
+    \hfill \textit{May 2024 - Aug 2024}
+    \begin{highlights}
+      \item Job Duties Description \#1, XYZ Format
+      \item Job Duties Description \#2, XYZ Format
+      \item Job Duties Description \#3, XYZ Format
+    \end{highlights}
+    \end{onecolentry}
+    
+    \section{Research Projects}
+
+        \begin{onecolentry}
+        \textbf{Research Project \#1} \textit{Supervisor: Dr. Supervisor}
+            \begin{highlights}
+            \item Research Project Description 
+            \end{highlights}
+        \end{onecolentry}
+
+        \vspace{0.10 cm}
+
+        \begin{onecolentry}
+        \textbf{Research Project \#2} \textit{Supervisor: Dr. Supervisor}
+            \begin{highlights}
+            \item Research Project Description 
+            \end{highlights}
+        \end{onecolentry}
+
+    \section{Awards}
+        \begin{twocolentry}{
+            \textit{Value: \$\#}
+        }
+            \textbf{Research or Academic Award(s)}
+        \end{twocolentry}
+        \begin{twocolentry}{
+            \textit{Value: \$\#}
+        }
+            \textbf{Research or Academic Award(s)}
+        \end{twocolentry}
+        \begin{twocolentry}{
+            \textit{Value: \$\#}
+        }
+            \textbf{Research or Academic Award(s)}
+        \end{twocolentry}
+        \begin{twocolentry}{
+            \textit{Value: \$\#}
+        }
+            \textbf{Research or Academic Award(s)}
+        \end{twocolentry}
+
+    \section{Technical Skills}
+      \begin{onecolentry}
+        \textbf{Programming:} Python, C++, Julia, Rust, C, Java
+      \end{onecolentry}
+      \begin{onecolentry}
+        \textbf{Tools \& Libraries:} QuTiP, Qiskit, PennyLane, NumPy, SciPy, pandas, matplotlib, Git, LaTeX
+      \end{onecolentry}
+        
+    \section{Research Contributions}
+        \begin{samepage}
+            \begin{twocolentry}{
+                \textit{Jun 2025}
+            }
+                \textbf{Research Paper Title}
+            \end{twocolentry}
+
+            
+            \begin{onecolentry}
+                \mbox{Author \#1}, \mbox{\textbf{\textit{John Doe}}}, \mbox{Author \#2}, \mbox{Author \#3}
+
+                
+                \textbf{Published Journal Name}: \underline{Link to publication} 
+        \end{onecolentry}
+        \end{samepage}
+        
+        \vspace{0.15 cm}
+
+        \begin{samepage}
+            \begin{twocolentry}{
+                \textit{Aug 2026}
+            }
+                \textbf{Research Paper Title}
+            \end{twocolentry}
+            
+            \begin{onecolentry}
+              \mbox{Author \#1}, \mbox{et al.}\\
+              \mbox{\textit{Acknowledged for contributions to XYZ}}
+                
+                \textbf{Published Journal Name}: \underline{Link to publication} 
+        \end{onecolentry}
+        \end{samepage}
+\end{document}
