@@ -1,0 +1,85 @@
+\documentclass[
+    reprint,
+    aps,
+    pra,
+    amsmath,
+    amssymb,
+    superscriptaddress,
+    onecolumn,
+    11pt
+]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!50!black,
+    citecolor=blue!50!black,
+    urlcolor=blue!50!black
+}
+
+\begin{document}
+
+\title{Quick Research Note: [Short Descriptive Title]}
+
+\author{[Author Name]}
+\altaffiliation[Also at: ]{[Department/Laboratory Name]}
+\affiliation{%
+ [Research Group or Laboratory Name], [University or Institution Name], [City, State, Zip Code]
+}%
+
+\date{\today}
+
+\begin{abstract}
+  This document serves as a standardized template for quick technical write-ups, theoretical derivations, or experimental progress reports within the research group. Briefly summarize the core objective, key methodology, principal findings, and next steps in 3-5 sentences. Here is a citation of paper \cite{johndoe2024}.
+\end{abstract}
+
+\maketitle
+
+\section{\label{sec:intro}Introduction and Motivation}
+State the context of the current note. Why is this calculation, derivation, or diagnostic being performed? Connect it to ongoing group projects or recent experimental/theoretical roadblocks.
+
+\section{\label{sec:formulation}Theoretical Formulation / Setup}
+Define the mathematical framework or physical model being used. For example, consider a Hamiltonian of the general form:
+\begin{equation}
+    \hat{H} = \sum_{i} \epsilon_i \hat{c}^\dagger_i \hat{c}_i + \sum_{ij} t_{ij} \left( \hat{c}^\dagger_i \hat{c}_j + \text{h.c.} \right) + U \sum_i \hat{n}_{i\uparrow} \hat{n}_{i\downarrow},
+    \label{eq:hamiltonian}
+\end{equation}
+where the symbols retain their standard definitions within the context of our group's convention.
+
+\section{\label{sec:results}Calculations and Discussion}
+Describe the derivation steps or computational results. When referencing equations, use Eq.~(\ref{eq:hamiltonian}).
+
+\subsection{Analytical Limits}
+In the limit of strong interactions ($U \gg t$), we can perform a perturbative expansion to second order in $t/U$, yielding an effective superexchange interaction:
+\begin{equation}
+    J = \frac{4t^2}{U}.
+\end{equation}
+This confirms our initial hypothesis regarding the low-energy effective spin model.
+
+\section{\label{sec:conclusion}Summary and Action Items}
+Conclude with clear takeaways and what needs to be tested next.
+\begin{itemize}
+    \item \textbf{Finding 1:} The perturbative limit maps correctly onto the Heisenberg model.
+    \item \textbf{Action Item 1:} Extend the numerical code to include next-nearest-neighbor hopping terms by [Date].
+    \item \textbf{Action Item 2:} Discuss discrepancies with experimental dataset B during the next group meeting.
+\end{itemize}
+
+\newpage
+\appendix
+
+\section{Derivation Details}
+\subsection{Second-Order Perturbation Theory}
+Here we include lengthy algebraic manipulations or supplementary proofs that would otherwise interrupt the flow of the main text.
+\begin{equation}
+    E_0^{(2)} = \sum_{m \neq 0} \frac{|\langle m | \hat{H}_1 | 0 \rangle|^2}{E_0^{(0)} - E_m^{(0)}}.
+\end{equation}
+
+\newpage
+\bibliography{reference}
+
+\end{document}
