@@ -2,7 +2,7 @@ name: Test LaTeX Compilation
 
 on:
   push:
-    branches: [ "main" ]
+    branches-ignore: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,12 +26,3 @@ jobs:
         with:
           root_file: ${{ matrix.folder }}.tex
           working_directory: ${{ matrix.folder }}
-
-      - name: Copy PDF to output directory
-        run: cp ${{ matrix.folder }}/${{ matrix.folder }}.pdf output/
-
-      - name: Upload PDF Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.folder }}-pdf
-          path: output/${{ matrix.folder }}.pdf
