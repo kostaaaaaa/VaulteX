@@ -1,0 +1,214 @@
+\documentclass[10pt]{beamer}
+
+% ===== Essential Packages for pdfLaTeX =====
+\usepackage[utf8]{inputenc} % Handles standard text encoding
+\usepackage[T1]{fontenc}    % Handles standard font encoding (replaces fontspec)
+
+% 1. Set the text font
+\usepackage{lmodern} 
+
+% 2. Load math support
+\usepackage{amsmath}
+\usefonttheme[onlymath]{serif}
+
+% 3. Load the APS-style math font LAST to override defaults
+\usepackage[varg]{newtxmath} 
+
+% 4. Load physics and other utilities
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{quantikz}
+\usetikzlibrary{positioning, shapes.geometric, arrows.meta, shapes.multipart}
+\usepackage{booktabs}
+\usepackage{listings} 
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\definecolor{periwinkle}{RGB}{204, 204, 255}
+\definecolor{periwinkleDark}{RGB}{102, 102, 204}
+
+% ===== Progress Bar Implementation =====
+\makeatletter
+\setbeamertemplate{footline}{%
+    \begin{tikzpicture}[remember picture,overlay]
+        \fill[gray!30] (current page.north west) -- ++(\paperwidth,0) -- ++(0,-0.1cm) -- ++(-\paperwidth,0) -- cycle;
+        \fill[periwinkleDark] (current page.north west) -- ++(\paperwidth*\insertframenumber/\inserttotalframenumber,0) -- ++(0,-0.1cm) -- ++(-\paperwidth*\insertframenumber/\inserttotalframenumber,0) -- cycle;
+        \node[anchor=north east, xshift=-0.2cm, yshift=-0.15cm] at (current page.north east) {\scriptsize \insertframenumber/\inserttotalframenumber};
+    \end{tikzpicture}%
+}
+\makeatother
+
+% Custom Equation Command
+\newcommand{\eq}[1]{%
+  \begin{equation*}
+    \begin{aligned}
+      #1
+    \end{aligned}
+  \end{equation*}
+}
+
+\renewcommand{\figurename}{Fig}
+\setbeamertemplate{caption}[numbered]
+
+% ===== Theme Settings =====
+\usetheme{default}
+\usecolortheme{seahorse}
+\setbeamercolor{title}{bg=periwinkle}
+\setbeamercolor{frametitle}{bg=periwinkle}
+\setbeamertemplate{navigation symbols}{}
+
+% ===== Title Page Data =====
+\title{Presentation Title}
+\subtitle{Presentation Subtitle and Description}
+\author{John Doe}
+\institute{Affiliation/Company}
+\date{\today}
+
+\begin{document}
+
+% --- 1. Title Page ---
+\begin{frame}[plain]
+    \titlepage
+    \centering
+    \includegraphics[height=1.5cm]{example-image-a}
+\end{frame}
+
+\begin{frame}{Outline}
+    \begin{enumerate}
+        \item Introduction
+        \begin{enumerate}\color{blue!80!black}
+            \item Topic \#1
+            \item Topic \#2
+        \end{enumerate}
+        \item Methodology
+        \begin{enumerate}\color{blue!80!black}
+            \item Topic \#1
+            \item Topic \#2
+        \end{enumerate}
+        \item Conclusion and Outlook
+        \begin{enumerate}\color{blue!80!black}
+            \item Topic \#1
+            \item Topic \#2
+        \end{enumerate}
+    \end{enumerate}
+\end{frame}
+
+
+% --- 2. All Text Slide ---
+\begin{frame}{Introduction to Non-Markovian Noise}
+    \textbf{Core Concepts:}
+    \begin{itemize}
+        \item Quantum systems interact with their environment, leading to decoherence.
+        \item Markovian noise assumes the environment has no memory (information flows strictly from system to environment).
+        \item \textbf{Non-Markovian noise} involves information backflow, where the environment retains memory of the system's past states.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Implications for Error Correction:}
+    \begin{enumerate}
+        \item Standard Quantum Error Correction (QEC) assumes independent, memoryless errors.
+        \item Memory effects can cause correlated errors over time, degrading threshold theorems.
+    \end{enumerate}
+\end{frame}
+
+% --- 3. Text (LHS) and Figure (RHS) ---
+\begin{frame}{Experimental Setup}
+    \begin{columns}[T] % [T] aligns columns at the top
+        
+        \begin{column}{0.5\textwidth}
+            \textbf{System Overview:}
+            \begin{itemize}
+                \item The setup involves a superconducting qubit coupled to a readout resonator.
+                \item We induce memory effects by strongly coupling the qubit to a secondary lossy cavity.
+                \item Measurements are taken using standard Ramsey interferometry.
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{example-image-b}
+            \captionof{figure}{\scriptsize Schematic of the qubit-cavity architecture.}
+        \end{column}
+        
+    \end{columns}
+\end{frame}
+
+% --- 4. Only Figure Slide ---
+\begin{frame}{State Tomography Results}
+    \centering
+    \textbf{Fidelity Decay Over Time} \\
+    \vspace{0.3cm}
+    \includegraphics[width=0.85\textwidth, height=0.55\textheight]{example-image-c}
+    \vspace{0.2cm}
+    \captionof{figure}{\small The revivals in fidelity clearly indicate information backflow characteristic of non-Markovian dynamics.}
+\end{frame}
+
+% --- 5. Text and Equation Slide ---
+\begin{frame}{Mathematical Modeling of the Bath}
+    To describe the evolution of the open quantum system, we use the time-local master equation rather than the standard Lindblad form.
+    
+    \vspace{0.3cm}
+    \textbf{Time-Convolutionless (TCL) Master Equation:}
+    \eq{
+        \frac{d}{dt}\rho(t) &= \mathcal{K}(t)\rho(t) \\
+        \mathcal{K}(t)\rho(t) &= -i [H(t), \rho(t)] + \sum_i \gamma_i(t) \left( L_i \rho(t) L_i^\dagger - \frac{1}{2}\{L_i^\dagger L_i, \rho(t)\} \right)
+    }
+    
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Here, $\gamma_i(t)$ represents the time-dependent decay rates.
+        \item A signature of non-Markovianity is when $\gamma_i(t) < 0$ for some interval of time, indicating information flowing back into the system.
+    \end{itemize}
+\end{frame}
+
+% --- 6. Text, Equation, and Figure ---
+\begin{frame}{Information Measure}
+    \begin{columns}[T]
+        
+        \begin{column}{0.5\textwidth}
+            \textbf{Trace Distance:} \\
+            A common measure for distinguishability between two quantum states $\rho_1$ and $\rho_2$ is the trace distance:
+            \eq{
+                &D(\rho_1, \rho_2) = \frac{1}{2} \norm{\rho_1 - \rho_2}_1 \\
+                &= \frac{1}{2} \Tr \left( \sqrt{(\rho_1 - \rho_2)^\dagger (\rho_1 - \rho_2)} \right)
+            }
+            \vspace{0.1cm}
+            \footnotesize
+            When $\frac{d}{dt}D > 0$, the states become more distinguishable, which is our signature for non-Markovianity.
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            \centering
+            \vspace{1cm} % Push image down to align nicely with text
+            \includegraphics[width=0.8\textwidth]{example-image-a}
+            \captionof{figure}{\scriptsize Trace distance oscillation over time.}
+        \end{column}
+        
+    \end{columns}
+\end{frame}
+
+% --- 7. Citations / References ---
+\begin{frame}{References}
+    \vspace{0.2cm}
+    \begin{enumerate}
+        \item[\textbf{[1]}] Breuer, H. P., Laine, E. M., \& Piilo, J. (2009). \textit{Measure for the degree of non-Markovian behavior of quantum processes in open systems}. Physical Review Letters, 103(21), 210401.
+        \vspace{0.2cm}
+        \item[\textbf{[2]}] Reference Two (e.g., specific QEC paper).
+    \end{enumerate}
+\end{frame}
+
+% --- 8. Thank You / Closing ---
+\begin{frame}[plain]
+    \centering
+    \vspace{2cm}
+    {\Huge \textbf{Thank You!}}
+    
+    \vspace{1cm}
+    {\Large Questions?}
+    
+    \vfill
+    \scriptsize \textcolor{gray}{Contact: john.doe@mailing.ca}
+\end{frame}
+
+\end{document}
