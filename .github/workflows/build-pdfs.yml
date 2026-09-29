@@ -3,6 +3,12 @@ name: Build and Publish PDFs
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'output/**'
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   compile:
@@ -40,26 +46,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Download resume PDF
+      - name: Download all compiled PDFs
         uses: actions/download-artifact@v4
         with:
-          name: pdf-resume
+          pattern: pdf-*
           path: output/
+          merge-multiple: true
 
-      - name: Download quick-note PDF
-        uses: actions/download-artifact@v4
+      - name: Create Pull Request with PDFs
+        uses: peter-evans/create-pull-request@v6
         with:
-          name: pdf-quick-note
-          path: output/
-
-      - name: Download presentation PDF
-        uses: actions/download-artifact@v4
-        with:
-          name: pdf-presentation
-          path: output/
-
-      - name: Commit and push PDFs
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-update compiled LaTeX PDFs [skip ci]"
-          file_pattern: "output/*.pdf"
+          commit-message: "Auto-update compiled LaTeX PDFs"
+          title: "Update compiled LaTeX PDFs"
+          body: "This PR automatically updates the compiled LaTeX PDFs."
+          branch: "update-pdfs"
+          base: "main"
