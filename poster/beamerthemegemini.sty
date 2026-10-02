@@ -1,0 +1,74 @@
+\ProvidesPackage{beamerthemegemini}[2025/01/01 Gemini-inspired poster theme]
+
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{xcolor}
+
+\definecolor{gemininavy}{HTML}{912338}
+\definecolor{geminiaccent}{HTML}{E4572E}
+\definecolor{geminibg}{HTML}{F4F6F8}
+\definecolor{geminigray}{HTML}{55606B}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black!88}
+\setbeamercolor{headline}{bg=gemininavy,fg=white}
+\setbeamercolor{headline rule}{bg=geminiaccent}
+\setbeamercolor{block title}{bg=gemininavy,fg=white}
+\setbeamercolor{block body}{bg=geminibg,fg=black!88}
+\setbeamercolor{footline}{bg=geminiaccent,fg=white}
+\setbeamercolor{itemize item}{fg=geminiaccent}
+\setbeamercolor{itemize subitem}{fg=geminiaccent}
+\setbeamercolor{enumerate item}{fg=geminiaccent}
+\setbeamercolor{caption name}{fg=gemininavy}
+
+\usefonttheme{professionalfonts}
+\setbeamerfont{title in headline}{size=\VeryHuge,series=\bfseries}
+\setbeamerfont{author in headline}{size=\Large}
+\setbeamerfont{institute in headline}{size=\large}
+\setbeamerfont{block title}{size=\large,series=\bfseries}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamerfont{caption}{size=\small}
+
+\newcommand{\poster@logoL}{}
+\newcommand{\poster@logoR}{}
+\newcommand{\logoleft}[1]{\renewcommand{\poster@logoL}{#1}}
+\newcommand{\logoright}[1]{\renewcommand{\poster@logoR}{#1}}
+
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,sep=1.0cm,center]{headline}%
+    \ifboolexpr{test {\ifdefempty{\poster@logoL}} and
+                test {\ifdefempty{\poster@logoR}}}{}{%
+      \poster@logoL\hfill\poster@logoR\par\vskip0.5cm
+    }%
+    {\usebeamerfont{title in headline}\inserttitle\par}%
+    \vskip0.5cm
+    {\usebeamerfont{author in headline}\insertauthor\par}%
+    \vskip0.2cm
+    {\usebeamerfont{institute in headline}\insertinstitute\par}%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.30cm,dp=0]{headline rule}\end{beamercolorbox}%
+}
+
+\setbeamertemplate{block begin}{%
+  \vskip1.5ex%
+  \begin{beamercolorbox}[wd=\linewidth,sep=0.8ex,leftskip=1.2ex,rightskip=1.2ex]{block title}%
+    \usebeamerfont{block title}\insertblocktitle%
+  \end{beamercolorbox}%
+  \vskip0.4ex%
+  \begin{beamercolorbox}[wd=\linewidth,sep=1.2ex,leftskip=1.2ex,rightskip=1.2ex]{block body}%
+    \usebeamerfont{block body}%
+}
+\setbeamertemplate{block end}{%
+  \end{beamercolorbox}%
+  \vskip1.5ex%
+}
+
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.25cm,dp=0]{headline rule}\end{beamercolorbox}%
+}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize subitem}[triangle]
