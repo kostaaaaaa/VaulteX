@@ -1,0 +1,104 @@
+\documentclass[final]{beamer}
+
+\usepackage[orientation=landscape,size=a0,scale=1.4]{beamerposter}
+\usetheme{gemini}
+
+\usepackage{amsmath,amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.02\paperwidth}
+\setlength{\colwidth}{0.30\paperwidth}
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+
+\title{Quantum Transport in Topological Insulator Thin Films}
+\author{Jane Doe \and John Smith \and Advisor Name}
+\institute{Department of Physics, University of Example}
+
+\begin{document}
+\begin{frame}[t]
+\begin{columns}[t]
+
+\separatorcolumn
+\begin{column}{\colwidth}
+
+  \begin{block}{Introduction}
+    Topological insulators (TIs) host metallic surface states protected by
+    time-reversal symmetry, while the bulk remains insulating. These states
+    are promising for spintronics and low-dissipation electronics.
+    \begin{itemize}
+      \item Bulk band gap: \SI{0.3}{\electronvolt}
+      \item Dirac surface states with spin-momentum locking
+      \item Robust against non-magnetic disorder
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Theory}
+    The low-energy surface Hamiltonian is
+    \begin{equation}
+      H = \hbar v_F (\sigma_x k_y - \sigma_y k_x),
+    \end{equation}
+    where $v_F \approx \SI{5e5}{\meter\per\second}$ and $\sigma_i$ are
+    Pauli matrices. The resulting Dirac cone is shown in Fig.~\ref{fig:cone}.
+  \end{block}
+
+\end{column}
+
+\separatorcolumn
+\begin{column}{\colwidth}
+
+  \begin{block}{Methods}
+    Thin films (\SI{5}{}--\SI{20}{\nano\meter}) were grown by MBE on
+    \ce{Al2O3}(0001). Transport measurements were performed in a
+    dilution refrigerator down to \SI{20}{\milli\kelvin}.
+  \end{block}
+
+  \begin{block}{Results}
+    \begin{figure}
+      \centering
+      \includegraphics{example-image-a}
+      \caption{Longitudinal conductivity vs.\ temperature.}
+      \label{fig:cone}
+    \end{figure}
+  \end{block}
+
+\end{column}
+
+\separatorcolumn
+\begin{column}{\colwidth}
+
+  \begin{block}{Discussion}
+    The data are consistent with weak antilocalization from strong
+    spin-orbit coupling. Deviations below \SI{50}{\milli\kelvin} suggest
+    bulk leakage, which we attribute to inadvertent doping.
+  \end{block}
+
+  \begin{block}{Conclusions}
+    \begin{enumerate}
+      \item High-quality TI films grown by MBE.
+      \item Surface-dominated transport above \SI{50}{\milli\kelvin}.
+      \item Future work: gate-tuning the Fermi level.
+    \end{enumerate}
+  \end{block}
+
+  \begin{block}{References}
+    \small
+    \begin{enumerate}
+      \item M.~Z. Hasan and C.~L. Kane, Rev.\ Mod.\ Phys.\ \textbf{82}, 3045 (2010).
+      \item X.-L. Qi and S.-C. Zhang, Rev.\ Mod.\ Phys.\ \textbf{83}, 1057 (2011).
+    \end{enumerate}
+  \end{block}
+
+\end{column}
+\separatorcolumn
+
+\end{columns}
+\end{frame}
+\end{document}

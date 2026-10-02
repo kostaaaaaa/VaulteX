@@ -20,6 +20,7 @@ jobs:
           - resume
           - quick-note
           - presentation
+          - poster
 
     steps:
       - name: Check out repository
